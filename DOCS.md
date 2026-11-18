@@ -219,3 +219,122 @@ Regions without `coords` are never returned.
 
 ---
 Support the Project : https://rexshack.tebex.store/
+
+<!-- BEGIN AUTO-REFERENCE (generated from the code; re-run the generator instead of editing by hand) -->
+
+## Technical reference
+
+Generated from the source of **rsg-economy 3.1.0**. Names, arguments and defaults below are read straight from the code.
+
+### Dependencies
+
+`oxmysql`, `rsg-core`
+
+### Database
+
+Tables: `rsg_economy_treasury`, `rsg_economy_tax`, `rsg_economy_ledger`, `rsg_economy_market`, `rsg_economy_project`.
+
+Tables are created automatically on start while `Config.AutoDatabase = true` (default). Nothing is ever dropped or overwritten.
+For a manual install set `Config.AutoDatabase = false` and import `install.sql` once.
+
+```lua
+-- shared/config.lua
+Config.AutoDatabase = true -- false = import the SQL file yourself
+```
+
+### Configuration
+
+| Option | Default | Notes |
+|---|---|---|
+| `Config.AutoDatabase` | `true` | Tables are created automatically on start. Set to false to import install.sql manually. |
+| `Config.AllowPushToTalkWhileOpen` | `true` | While the NUI is open, block game controls but allow push-to-talk. |
+| `Config.PushToTalkControls` | `table` |  |
+| `Config.Command` | `'economy'` | Chat command that opens the economy panel ('' to disable) |
+| `Config.AdminPermission` | `'admin'` | Permission level needed for the admin commands |
+| `Config.SaveInterval` | `30` | Seconds between database saves of changed treasuries, rates and prices |
+| `Config.MoneyType` | `'cash'` | Money type used for deposits and withdrawals ('cash' or 'bank') |
+| `Config.UseReputation` | `true` | Use rsg-reputation price modifiers (disliked players pay more, respected players less) when it is running |
+| `Config.RequireOnDuty` | `false` |  |
+| `Config.RegionRadius` | `800.0` | exports['rsg-economy']:GetRegionAt(coords). A position further than RegionRadius from every town has no region |
+| `Config.Regions` | `table` |  |
+| `Config.Tax` | `table` |  |
+| `Config.Step` | `0.005` |  |
+| `Config.ChangeCooldown` | `300` | seconds an official must wait before changing the same rate again in the same region |
+| `Config.Categories` | `table` |  |
+| `Config.Treasury` | `table` |  |
+| `Config.PublicBalance` | `true` |  |
+| `Config.AllowPublicDonations` | `true` |  |
+| `Config.DonationAction` | `'donation'` |  |
+| `Config.MaxAmount` | `1000000` |  |
+| `Config.Withdraw` | `table` |  |
+| `Config.Ledger` | `table` |  |
+| `Config.Market` | `table` |  |
+| `Config.Enabled` | `true` |  |
+| `Config.PressurePerUnit` | `0.02` |  |
+| `Config.HalfLifeHours` | `12` |  |
+| `Config.Sensitivity` | `0.5` |  |
+| `Config.MinMultiplier` | `0.5` |  |
+| `Config.MaxMultiplier` | `1.5` |  |
+| `Config.Items` | `table` | per-item overrides: { sensitivity, min, max, perUnit } |
+| `Config.Projects` | `table` |  |
+
+### Exports
+
+**Server**
+
+| Export | Arguments | File |
+|---|---|---|
+| `Quote` | `` | `server/economy.lua` |
+| `Record` | `` | `server/economy.lua` |
+| `GetTaxRate` | `` | `server/economy.lua` |
+| `SetTaxRate` | `` | `server/economy.lua` |
+| `GetTreasury` | `` | `server/economy.lua` |
+| `DepositTreasury` | `region, amount, reason, actor` | `server/economy.lua` |
+| `WithdrawTreasury` | `region, amount, reason, actor` | `server/economy.lua` |
+| `GetMarketMultiplier` | `` | `server/economy.lua` |
+| `GetPressure` | `` | `server/economy.lua` |
+| `RecordTrade` | `` | `server/economy.lua` |
+| `ResetMarket` | `` | `server/economy.lua` |
+| `IsOfficial` | `` | `server/economy.lua` |
+| `HasProject` | `` | `server/economy.lua` |
+| `GetRegions` | `` | `server/economy.lua` |
+| `GetRegionAt` | `coords, maxDistance` | `server/economy.lua` |
+| `GetCategories` | `` | `server/economy.lua` |
+
+```lua
+-- example
+local result = exports['rsg-economy']:Quote()
+```
+
+### Callbacks
+
+| Callback | Side | Arguments | File |
+|---|---|---|---|
+| `rsg-economy:server:getPanel` | server | `source, cb` | `server/actions.lua` |
+| `rsg-economy:server:getLedger` | server | `source, cb, region` | `server/actions.lua` |
+
+```lua
+-- client side
+RSGCore.Functions.TriggerCallback('rsg-economy:server:getPanel', function(result)
+    -- use result
+end)
+```
+
+### Events
+
+Server events can be fired by any client, so every handler re-validates the player, the arguments and any permission, distance or cooldown on the server. Never add a reward to a handler without those checks.
+
+| Event | Side | Arguments | File |
+|---|---|---|---|
+| `rsg-economy:client:open` | client | `` | `client/ui.lua` |
+
+```lua
+-- from a server script
+TriggerClientEvent('rsg-economy:client:open', source)
+```
+
+### Locales
+
+Language files in `locales/`: `de`, `el`, `en`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br`, `ro`. Set the language with `setr rsg:locale "en"`.
+
+<!-- END AUTO-REFERENCE -->
