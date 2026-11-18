@@ -23,6 +23,7 @@ server_scripts {
     'server/economy.lua',
     'server/actions.lua',
     'server/commands.lua',
+    'server/versionchecker.lua',
 }
 
 ui_page 'html/index.html'
