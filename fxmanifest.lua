@@ -6,7 +6,7 @@ lua54 'yes'
 name 'rsg-economy'
 author 'RexShack'
 description 'Regional treasuries, taxes, supply-and-demand prices and town projects for RSG Framework'
-version '3.0.0'
+version '3.1.0'
 
 shared_scripts {
     '@rsg-core/shared/locale.lua',

@@ -2,7 +2,7 @@
 
 A regional economy for the RSG Framework: every town has a **treasury**, its own **tax rates** set by its officials, **supply-and-demand prices** that react to what players buy and sell, and **town projects** the treasury can pay for. Taxes flow into the treasuries, and projects and officials' decisions spend them, so money keeps moving instead of piling up.
 
-Version 3.0.0 · Requires `rsg-core` and `oxmysql` · Optional: `rsg-reputation` · No ox_lib, no target and no inventory dependency
+Version 3.1.0 · Requires `rsg-core` and `oxmysql` · Optional: `rsg-reputation` · No ox_lib, no target and no inventory dependency
 
 Full developer and server owner documentation is in [DOCS.md](DOCS.md).
 
@@ -116,4 +116,9 @@ Ships with `en`, `de`, `el`, `es`, `fr`, `ja`, `nl`, `pl`, `pt-br` and `ro`, all
 - The panel works from anywhere. If officials should only act inside the town hall, open it with the `rsg-economy:client:open` event from a prompt or target there and set `Config.Command = ''`.
 
 ---
+## Finding the region of a position
+
+Other scripts call `exports['rsg-economy']:GetRegionAt(coords)` to find the town nearest to a position (within `Config.RegionRadius`, default 800 m). Each region has approximate town-centre `coords` in `Config.Regions`; edit them if your towns are elsewhere.
+
+
 Support the Project : https://rexshack.tebex.store/

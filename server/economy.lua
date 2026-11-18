@@ -322,4 +322,22 @@ exports('ResetMarket', RSGEcon.ResetMarket)
 exports('IsOfficial', RSGEcon.IsOfficial)
 exports('HasProject', RSGEcon.HasProject)
 exports('GetRegions', function() return Config.Regions end)
+
+-- nearest region (with `coords`) to a position, within maxDistance (default Config.RegionRadius); nil when none is close enough.
+-- coords may be a vector3/vector4 or a table with x, y, z. Returns regionId, distance.
+exports('GetRegionAt', function(coords, maxDistance)
+    if type(coords) ~= 'vector3' and type(coords) ~= 'vector4' and type(coords) ~= 'table' then return nil end
+    local x, y, z = tonumber(coords.x), tonumber(coords.y), tonumber(coords.z) or 0.0
+    if not x or not y then return nil end
+    local limit = tonumber(maxDistance) or Config.RegionRadius or 800.0
+    local best, bestDist
+    for id, r in pairs(Config.Regions) do
+        local c = r.coords
+        if c then
+            local d = #(vector3(x, y, z) - vector3(c.x, c.y, c.z))
+            if d <= limit and (not bestDist or d < bestDist) then best, bestDist = id, d end
+        end
+    end
+    return best, bestDist
+end)
 exports('GetCategories', function() return Config.Tax.Categories end)

@@ -33,6 +33,10 @@ Config.UseReputation = true
 ------------------------------------------
 Config.RequireOnDuty = false
 
+-- coords (town centre, approximate - edit to taste) lets other scripts find the region of a position with
+-- exports['rsg-economy']:GetRegionAt(coords). A position further than RegionRadius from every town has no region.
+Config.RegionRadius = 800.0
+
 local function officials(lawJob)
     local list = {}
     if lawJob then list[#list + 1] = { job = lawJob, minGrade = 2 } end
@@ -41,15 +45,15 @@ local function officials(lawJob)
 end
 
 Config.Regions = {
-    valentine   = { label = 'Valentine',   order = 1, officials = officials('vallaw') },
-    rhodes      = { label = 'Rhodes',      order = 2, officials = officials('rholaw') },
-    saint_denis = { label = 'Saint Denis', order = 3, officials = officials('stdenlaw') },
-    strawberry  = { label = 'Strawberry',  order = 4, officials = officials('strlaw') },
-    blackwater  = { label = 'Blackwater',  order = 5, officials = officials('blklaw') },
-    annesburg   = { label = 'Annesburg',   order = 6, officials = officials(nil) },
-    van_horn    = { label = 'Van Horn',    order = 7, officials = officials(nil) },
-    armadillo   = { label = 'Armadillo',   order = 8, officials = officials(nil) },
-    tumbleweed  = { label = 'Tumbleweed',  order = 9, officials = officials(nil) },
+    valentine   = { label = 'Valentine',   order = 1, coords = vector3(-281.0, 803.0, 119.4), officials = officials('vallaw') },
+    rhodes      = { label = 'Rhodes',      order = 2, coords = vector3(1225.0, -1297.0, 76.9), officials = officials('rholaw') },
+    saint_denis = { label = 'Saint Denis', order = 3, coords = vector3(2632.0, -1312.0, 51.4), officials = officials('stdenlaw') },
+    strawberry  = { label = 'Strawberry',  order = 4, coords = vector3(-1791.0, -386.0, 160.0), officials = officials('strlaw') },
+    blackwater  = { label = 'Blackwater',  order = 5, coords = vector3(-813.0, -1336.0, 43.6), officials = officials('blklaw') },
+    annesburg   = { label = 'Annesburg',   order = 6, coords = vector3(2930.0, 1285.0, 44.7), officials = officials(nil) },
+    van_horn    = { label = 'Van Horn',    order = 7, coords = vector3(2987.0, 569.0, 44.6), officials = officials(nil) },
+    armadillo   = { label = 'Armadillo',   order = 8, coords = vector3(-3685.0, -2623.0, -14.0), officials = officials(nil) },
+    tumbleweed  = { label = 'Tumbleweed',  order = 9, coords = vector3(-5512.0, -2937.0, -1.9), officials = officials(nil) },
 }
 
 ------------------------------------------

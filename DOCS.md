@@ -207,5 +207,15 @@ Created automatically (`Config.AutoDatabase`), or import `install.sql`.
 | A locale shows a raw key | The key is missing from that language file. |
 | Push-to-talk does not work with the panel open | `Config.AllowPushToTalkWhileOpen` and `PushToTalkControls`. |
 
+## Finding the region of a position
+
+`GetRegionAt(coords, maxDistance?)` returns `regionId, distance` for the nearest region that has `coords`, or `nil` when none is within `maxDistance` (default `Config.RegionRadius`). `coords` may be a vector3, a vector4 or a table with `x`, `y`, `z`. Shop, rent and fine scripts use it so the region does not have to be configured per shop:
+```lua
+local region = exports['rsg-economy']:GetRegionAt(GetEntityCoords(GetPlayerPed(src)))
+if region then exports['rsg-economy']:DepositTreasury(region, fine, 'fine', 'my-script') end
+```
+Regions without `coords` are never returned.
+
+
 ---
 Support the Project : https://rexshack.tebex.store/
